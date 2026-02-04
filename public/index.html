@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Deadline Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <nav id="navbar" style="display: none;">
+            <div class="nav-left">
+                <button id="dashboardBtn" class="nav-btn secondary" style="display: none;">Dashboard</button>
+            </div>
+            <button id="logoutBtn" class="nav-btn logout" style="display: none;">Logout</button>
+        </nav>
+
+        <h1 id="mainTitle" style="display: none;">Assignment Deadline Tracker</h1>
+
+        <div id="pages">
+            <div id="loginPage" class="page active">
+                <div class="center-screen">
+                    <div class="glass-panel" style="max-width: 450px; width: 100%; text-align: center;">
+                        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Welcome Back</h1>
+                        
+                        <div id="roleSelection">
+                            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Select your role to continue</p>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <button id="studentRoleBtn" style="background: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%); height: 60px; font-size: 1.2rem;">
+                                    I am a Student
+                                </button>
+                                <button id="teacherRoleBtn" class="secondary" style="height: 60px; font-size: 1.2rem;">
+                                    I am a Teacher
+                                </button>
+                            </div>
+                        </div>
+
+                        <form id="studentLoginForm" style="display: none; text-align: left;">
+                            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; text-align: center; font-size: 1.1rem; font-weight: 600;">Student Login</p>
+                            
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem;">Full Name</label>
+                                <input type="text" id="studentName" placeholder="Enter your name" required>
+                            </div>
+                            
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem;">Email Address</label>
+                                <input type="email" id="studentEmail" placeholder="student@example.com" required>
+                            </div>
+                            
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem;">Password</label>
+                                <input type="password" id="studentPassword" placeholder="Enter password" required>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                                <button type="button" id="backBtn" class="secondary" style="flex: 1; padding: 0.75rem 1rem;">Back</button>
+                                <button type="submit" style="flex: 1; padding: 0.75rem 1rem;">Login</button>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 1rem;">
+                            <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                                Assignment Deadline Tracker &copy; 2026
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="studentPage" class="page">
+                <div class="glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2>Student Dashboard</h2>
+                        <h3 id="studentGreeting" style="font-size: 1.2rem; color: var(--accent-primary); margin-bottom: 0;"></h3>
+                    </div>
+                    <div id="studentGrid" class="grid"></div>
+                </div>
+            </div>
+
+            <div id="teacherPage" class="page">
+                <div class="glass-panel">
+                    <h2>Teacher Dashboard</h2>
+                    <form id="createAssignmentForm">
+                        <input type="text" id="assignTitle" placeholder="Assignment Title" required>
+                        <textarea id="assignDescription" placeholder="Description"></textarea>
+                        
+                        <label>Deadline:</label>
+                        <input type="datetime-local" id="assignDeadline" required>
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <div style="flex: 1;">
+                                <label>Max Score:</label>
+                                <input type="number" id="assignMaxScore" placeholder="Max Score" value="100" required>
+                            </div>
+                            <div style="flex: 1;">
+                                <label>Penalty Rate (% per hour late):</label>
+                                <input type="number" id="assignPenaltyRate" placeholder="Penalty Rate" value="0" required>
+                            </div>
+                        </div>
+                        <button type="submit">Create Assignment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
