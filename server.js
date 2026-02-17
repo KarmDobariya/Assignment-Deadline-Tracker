@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log('MongoDB connection error:', err));
+    .then(() => console.log(''))
+    .catch(err => console.log(''));
 
 const assignmentSchema = new mongoose.Schema({
     title: {

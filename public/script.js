@@ -25,6 +25,13 @@ function switchPage(pageName) {
         navbar.style.display = 'none';
         mainTitle.style.display = 'none';
     }
+
+    if (pageName === 'login') {
+        document.getElementById('roleSelection').style.display = 'block';
+        document.getElementById('studentLoginForm').style.display = 'none';
+        document.getElementById('teacherLoginForm').style.display = 'none';
+    }
+
 }
 
 document.getElementById('studentRoleBtn').addEventListener('click', () => {
@@ -33,14 +40,23 @@ document.getElementById('studentRoleBtn').addEventListener('click', () => {
 });
 
 document.getElementById('teacherRoleBtn').addEventListener('click', () => {
-    loginAsTeacher();
+    document.getElementById('roleSelection').style.display = 'none';
+    document.getElementById('teacherLoginForm').style.display = 'block';
 });
+
 
 document.getElementById('backBtn').addEventListener('click', () => {
     document.getElementById('roleSelection').style.display = 'block';
     document.getElementById('studentLoginForm').style.display = 'none';
     resetStudentForm();
 });
+
+document.getElementById('teacherBackBtn').addEventListener('click', () => {
+    document.getElementById('roleSelection').style.display = 'block';
+    document.getElementById('teacherLoginForm').style.display = 'none';
+    document.getElementById('teacherLoginForm').reset();
+});
+
 
 document.getElementById('studentLoginForm').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -54,6 +70,21 @@ document.getElementById('studentLoginForm').addEventListener('submit', (e) => {
         alert('Please fill in all fields');
     }
 });
+
+document.getElementById('teacherLoginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('teacherName').value;
+    const email = document.getElementById('teacherEmail').value;
+    const password = document.getElementById('teacherPassword').value;
+
+    if (name && email && password) {
+        loginAsTeacher(name);
+    } else {
+        alert('Please fill in all fields');
+    }
+});
+
 
 function loginAsStudent(name) {
     appState.isLoggedIn = true;
@@ -70,12 +101,16 @@ function loginAsStudent(name) {
     switchPage('student');
 }
 
-function loginAsTeacher() {
+function loginAsTeacher(name) {
     appState.isLoggedIn = true;
     appState.userRole = 'teacher';
 
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userRole', 'teacher');
+    localStorage.setItem('teacherName', name);
+
+    document.getElementById('teacherLoginForm').reset();
+    document.getElementById('teacherLoginForm').style.display = 'none';
 
     updateNavbar();
     switchPage('teacher');
@@ -112,9 +147,15 @@ document.getElementById('dashboardBtn').addEventListener('click', () => {
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
     localStorage.clear();
+
     appState.isLoggedIn = false;
     appState.userRole = null;
     appState.studentName = null;
+
+    document.getElementById('roleSelection').style.display = 'block';
+    document.getElementById('studentLoginForm').style.display = 'none';
+    document.getElementById('teacherLoginForm').style.display = 'none';
+
     updateNavbar();
     switchPage('login');
 });
